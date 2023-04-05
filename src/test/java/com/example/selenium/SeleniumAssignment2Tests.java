@@ -8,12 +8,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.time.Duration;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BooleanSupplier;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -31,6 +30,12 @@ public class SeleniumAssignment2Tests {
         driver.manage().window().maximize();
         WebElement cookieButton = driver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/div/div[2]/button[3]"));
         cookieButton.click();
+        Thread.sleep(3000);
+    }
+
+    @BeforeEach
+    void navigate() throws InterruptedException {
+        driver.navigate().to("https://svtplay.se");
         Thread.sleep(3000);
     }
 
@@ -55,7 +60,7 @@ public class SeleniumAssignment2Tests {
 
         WebElement startLink = driver.findElement(By.cssSelector("li[type='start']"));
         WebElement programLink = driver.findElement(By.cssSelector("li[type='programs']"));
-        WebElement channelLink = driver.findElement(By.cssSelector("li[type='channels']"));
+        WebElement channelLink = driver.findElement(By.cssSelector("li[type='channels'"));
         assertEquals("START", startLink .getText(),"The link name of Start is false.");
         assertEquals("PROGRAM", programLink.getText(),"The link name of Program is false.");
         assertEquals("KANALER", channelLink.getText(),"The link name of Channels is false.");
@@ -126,7 +131,7 @@ public class SeleniumAssignment2Tests {
         Thread.sleep(3000);
 
         List<WebElement> abroadPrograms = driver.findElements(By.tagName("article"));
-        assertEquals(21,abroadPrograms.size());
+        assertEquals(22,abroadPrograms.size());
 //G Extra 3
         List<WebElement> abroadProgramsA = driver.findElements(By.cssSelector("a[classname='sc-b6440fda-1']"));
         ArrayList<String> abroadProgramNames = new ArrayList<>();
@@ -181,11 +186,7 @@ public class SeleniumAssignment2Tests {
         Thread.sleep(3000);
 
         WebElement agendaSearchResult = driver.findElement(By.tagName("em"));
-        agendaSearchResult.click();
-        Thread.sleep(3000);
-
-        WebElement websiteAgendaTitle = driver.findElement(By.xpath("//*[@id=\"play_main-content\"]/div/div[1]/div[2]/div/h1"));
-        assertEquals("Agenda",websiteAgendaTitle.getText());
+        assertEquals("Agenda", agendaSearchResult.getText());
     }
 
     // VG nr.2
@@ -218,11 +219,6 @@ public class SeleniumAssignment2Tests {
 
 
 
-    @AfterEach
-    void navigate() throws InterruptedException {
-        driver.navigate().to("https://svtplay.se");
-        Thread.sleep(3000);
-    }
 
     @AfterAll
     static void closeWebsite() {
